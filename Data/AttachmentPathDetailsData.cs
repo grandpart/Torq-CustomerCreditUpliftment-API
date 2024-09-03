@@ -15,7 +15,7 @@ namespace gmTemporaryCustomerCreditLimit.Data
             StringBuilder sb = new ();
             AttachmentPathDetails pathDetails = new();
 
-            sb.AppendLine("GI_GetFolderPathByFolderIDAndTableName");
+            sb.AppendLine("[Drive].[dbo].GI_GetFolderPathByFolderIDAndTableName");
           
 
             using (SqlConnection connection = new(connString))
@@ -63,7 +63,7 @@ namespace gmTemporaryCustomerCreditLimit.Data
         {
             StringBuilder sb = new();
             
-            sb.AppendLine("GI_insertAttachments");
+            sb.AppendLine("[Drive].[dbo].GI_insertAttachments");
 
 
             using (SqlConnection connection = new(connString))
