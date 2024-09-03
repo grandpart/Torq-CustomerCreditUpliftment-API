@@ -1,0 +1,6 @@
+@gmTemporaryCustomerCreditLimit_HostAddress = http://localhost:5195
+
+GET {{gmTemporaryCustomerCreditLimit_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

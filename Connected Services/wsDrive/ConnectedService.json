@@ -1,0 +1,49 @@
+{
+  "ExtendedData": {
+    "inputs": [
+      "http://srv-jhb1-drive/WebServicesCoordinator/prcwebservicescoordinator.svc"
+    ],
+    "collectionTypes": [
+      "System.Array",
+      "System.Collections.Generic.Dictionary`2"
+    ],
+    "enableDataBinding": true,
+    "namespaceMappings": [
+      "*, wsDrive"
+    ],
+    "references": [
+      "Azure.Core, {Azure.Core, 1.38.0}",
+      "Azure.Identity, {Azure.Identity, 1.11.3}",
+      "Microsoft.Bcl.AsyncInterfaces, {Microsoft.Bcl.AsyncInterfaces, 1.1.1}",
+      "Microsoft.Data.SqlClient, {Microsoft.Data.SqlClient, 5.2.1}",
+      "Microsoft.Identity.Client, {Microsoft.Identity.Client, 4.60.3}",
+      "Microsoft.Identity.Client.Extensions.Msal, {Microsoft.Identity.Client.Extensions.Msal, 4.60.3}",
+      "Microsoft.IdentityModel.Abstractions, {Microsoft.IdentityModel.Abstractions, 6.35.0}",
+      "Microsoft.IdentityModel.JsonWebTokens, {Microsoft.IdentityModel.JsonWebTokens, 6.35.0}",
+      "Microsoft.IdentityModel.Logging, {Microsoft.IdentityModel.Logging, 6.35.0}",
+      "Microsoft.IdentityModel.Protocols, {Microsoft.IdentityModel.Protocols, 6.35.0}",
+      "Microsoft.IdentityModel.Protocols.OpenIdConnect, {Microsoft.IdentityModel.Protocols.OpenIdConnect, 6.35.0}",
+      "Microsoft.IdentityModel.Tokens, {Microsoft.IdentityModel.Tokens, 6.35.0}",
+      "Microsoft.OpenApi, {Microsoft.OpenApi, 1.2.3}",
+      "Microsoft.SqlServer.Server, {Microsoft.SqlServer.Server, 1.0.0}",
+      "Newtonsoft.Json, {Newtonsoft.Json, 13.0.3}",
+      "Swashbuckle.AspNetCore.Swagger, {Swashbuckle.AspNetCore.Swagger, 6.4.0}",
+      "Swashbuckle.AspNetCore.SwaggerGen, {Swashbuckle.AspNetCore.SwaggerGen, 6.4.0}",
+      "Swashbuckle.AspNetCore.SwaggerUI, {Swashbuckle.AspNetCore.SwaggerUI, 6.4.0}",
+      "System.ClientModel, {System.ClientModel, 1.0.0}",
+      "System.Diagnostics.DiagnosticSource, {System.Diagnostics.DiagnosticSource, 6.0.1}",
+      "System.IdentityModel.Tokens.Jwt, {System.IdentityModel.Tokens.Jwt, 6.35.0}",
+      "System.Memory.Data, {System.Memory.Data, 1.0.2}",
+      "System.Runtime, {System.Runtime, 4.3.0}",
+      "System.Runtime.CompilerServices.Unsafe, {System.Runtime.CompilerServices.Unsafe, 6.0.0}",
+      "System.Security.Cryptography.Cng, {System.Security.Cryptography.Cng, 4.5.0}",
+      "System.Security.Cryptography.ProtectedData, {System.Security.Cryptography.ProtectedData, 8.0.0}",
+      "System.Text.Encoding, {System.Text.Encoding, 4.3.0}",
+      "System.Text.Encodings.Web, {System.Text.Encodings.Web, 4.7.2}",
+      "System.Text.Json, {System.Text.Json, 4.7.2}"
+    ],
+    "sync": true,
+    "targetFramework": "net8.0",
+    "typeReuseMode": "All"
+  }
+}
