@@ -8,6 +8,7 @@ namespace gmTemporaryCustomerCreditLimit.Data
 {
     public class CustomerDetailsData
     {
+        
         #region Read
         public static CustomerDetails GetCustomerDetailsByAccountNo(string connString, string customerAccount)
         {
