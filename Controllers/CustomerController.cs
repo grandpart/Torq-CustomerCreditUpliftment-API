@@ -34,14 +34,14 @@ namespace gmTemporaryCustomerCreditLimit.Controllers
 
         }
         [HttpGet]
-        [Route("GetAllCustomerDetails/")]
-        public Task GetAllCustomerDetails()
+        [Route("GetCustomerDetailsPerUserBranch/{username}")]
+        public Task GetCustomerDetailsPerBranch(int username )
         {
             var myConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
             string connSyspro = myConfig.GetValue<string>("ConnectionStrings:Syspro") ?? string.Empty;
 
-            var customer = CustomerDetailsData.GetAllActiveCustomerDetails(connSyspro);
+            var customer = CustomerDetailsData.GetAllActiveCustomerDetailsPerBranch(connSyspro,"");
 
             if (customer != null)
             {
@@ -51,6 +51,29 @@ namespace gmTemporaryCustomerCreditLimit.Controllers
             else
             {
                 Response.StatusCode = StatusCodes.Status404NotFound;
+                return Response.WriteAsync(JsonConvert.SerializeObject(customer));
+            }
+
+        }
+
+        [HttpGet]
+        [Route("SearchAllCustomerDetails/{search}")]
+        public Task SearchAllCustomerDetails(string search)
+        {
+            var myConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+
+            string connSyspro = myConfig.GetValue<string>("ConnectionStrings:Syspro") ?? string.Empty;
+
+            var customer = CustomerDetailsData.SearchAllActiveCustomerDetails(connSyspro, search);
+
+            if (customer != null)
+            {
+                Response.StatusCode = StatusCodes.Status200OK;
+                return Response.WriteAsync(JsonConvert.SerializeObject(customer));
+            }
+            else
+            {
+                Response.StatusCode = StatusCodes.Status408RequestTimeout;
                 return Response.WriteAsync(JsonConvert.SerializeObject(customer));
             }
 
