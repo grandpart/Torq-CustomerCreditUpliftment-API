@@ -34,14 +34,14 @@ namespace gmTemporaryCustomerCreditLimit.Controllers
 
         }
         [HttpGet]
-        [Route("GetCustomerDetailsPerUserBranch/{username}")]
-        public Task GetCustomerDetailsPerBranch(int username )
+        [Route("GetCustomerDetailsPerUserBranch/{username}/{branch}")]
+        public Task GetCustomerDetailsPerBranch(int username, string branch )
         {
             var myConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
             string connSyspro = myConfig.GetValue<string>("ConnectionStrings:Syspro") ?? string.Empty;
 
-            var customer = CustomerDetailsData.GetAllActiveCustomerDetailsPerBranch(connSyspro,"");
+            var customer = CustomerDetailsData.GetAllActiveCustomerDetailsPerBranch(connSyspro, branch);
 
             if (customer != null)
             {
@@ -50,7 +50,7 @@ namespace gmTemporaryCustomerCreditLimit.Controllers
             }
             else
             {
-                Response.StatusCode = StatusCodes.Status404NotFound;
+                Response.StatusCode = StatusCodes.Status417ExpectationFailed;
                 return Response.WriteAsync(JsonConvert.SerializeObject(customer));
             }
 

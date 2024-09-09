@@ -120,7 +120,7 @@ namespace gmTemporaryCustomerCreditLimit.Data
             sb.AppendLine("IIF (C.CustomerOnHold ='Y','Yes','No') [Status]");
             sb.AppendLine("FROM dbo.ArCustomer C WITH(NOLOCK)");
             sb.AppendLine("WHERE CustomerOnHold= 'N' ");
-            sb.AppendLine("AND Branch like '@branch' ");
+            sb.AppendLine("AND Branch like @branch ");
           
 
             using (SqlConnection connection = new(connString))
