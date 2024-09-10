@@ -28,7 +28,7 @@ namespace gmTemporaryCustomerCreditLimit.Controllers
             {
                 Response.StatusCode = StatusCodes.Status404NotFound;
 
-                return Response.WriteAsync(JsonConvert.False);
+                return Response.WriteAsync(JsonConvert.SerializeObject(""));
 
             }
 
