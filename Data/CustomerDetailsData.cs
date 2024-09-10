@@ -37,10 +37,14 @@ namespace gmTemporaryCustomerCreditLimit.Data
                     SqlDataAdapter aCustomer = new (command);
                     aCustomer.Fill(dtCustomer);
 
-                    customer.Customer = dtCustomer.Rows[0]["Customer"].ToString() ?? string.Empty;
-                    //customer.AvailableCredit = Convert.ToDouble(dtCustomer.Rows[0]["AvailableCredit"].ToString());
-                    customer.CreditLimit= Convert.ToDouble(dtCustomer.Rows[0]["CreditLimit"].ToString());
-                    customer.CustomerName = dtCustomer.Rows[0]["Name"].ToString() ?? string.Empty;
+                    if (dtCustomer.Rows.Count > 0)
+                    {
+                        customer.Customer = dtCustomer.Rows[0]["Customer"].ToString() ?? string.Empty;
+                        //customer.AvailableCredit = Convert.ToDouble(dtCustomer.Rows[0]["AvailableCredit"].ToString());
+                        customer.CreditLimit = Convert.ToDouble(dtCustomer.Rows[0]["CreditLimit"].ToString());
+                        customer.CustomerName = dtCustomer.Rows[0]["Name"].ToString() ?? string.Empty;
+
+                    }
 
 
                 }

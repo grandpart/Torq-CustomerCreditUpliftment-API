@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using static gmTemporaryCustomerCreditLimit.Model.DriveCallDetails;
 using gmTemporaryCustomerCreditLimit.Model;
+using Microsoft.AspNetCore.Http;
 
 namespace gmTemporaryCustomerCreditLimit.Controllers
 {
@@ -19,30 +20,11 @@ namespace gmTemporaryCustomerCreditLimit.Controllers
             var myConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             string connSyspro = myConfig.GetValue<string>("ConnectionStrings:connSyspro") ?? string.Empty;
 
-            if (referenceNo == "")
-
-            {
-                Response.StatusCode = StatusCodes.Status200OK;
-
-                return Response.WriteAsync("Invalid Reference Number");
-
-            }
-
-            // get attachment Location
+           // get attachment Location
 
             AttachmentPathDetails pathDetails  =AttachmentPathDetailsData.ReturnAttachmentTable(connSyspro, referenceNo);
-          
 
-            if (pathDetails == null)
-            {
-                Response.StatusCode = StatusCodes.Status200OK;
-                return Response.WriteAsync(JsonConvert.SerializeObject(pathDetails));
-            }
-            else
-            {
-                Response.StatusCode = StatusCodes.Status200OK;
-                return Response.WriteAsync("Unsuccessful");
-            }
+            return Response.WriteAsJsonAsync<AttachmentPathDetails> (pathDetails);
 
 
         }
@@ -52,29 +34,12 @@ namespace gmTemporaryCustomerCreditLimit.Controllers
         {
             var myConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             string connSyspro = myConfig.GetValue<string>("ConnectionStrings:connSyspro") ?? string.Empty;
-
-            if (attachmentPathDTO == null)
-
-            {
-                Response.StatusCode = StatusCodes.Status200OK;
-
-                return Response.WriteAsync("Invalid Object Details");
-
-            }
+           
 
             // Insert attachment per location
             bool results = AttachmentPathDetailsData.InsertAttachment(connSyspro, attachmentPathDTO);
 
-            if (results == true)
-            {
-                Response.StatusCode = StatusCodes.Status200OK;
-                return Response.WriteAsync(JsonConvert.SerializeObject("Success"));
-            }
-            else
-            {
-                Response.StatusCode = StatusCodes.Status200OK;
-                return Response.WriteAsync("Unsuccessful");
-            }
+            return Response.WriteAsync(results.ToString());
 
 
         }
