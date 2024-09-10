@@ -35,10 +35,12 @@ namespace gmTemporaryCustomerCreditLimit.Data
                     SqlDataAdapter aPathDetails = new(command);
                     aPathDetails.Fill(dtPathDetails);
 
-                    pathDetails.FolderPath = dtPathDetails.Rows[0]["FolderPath"].ToString() ?? string.Empty;
-                    pathDetails.ProcessName = dtPathDetails.Rows[0]["ProcessName"].ToString() ?? string.Empty;
-                    pathDetails.FolderName= dtPathDetails.Rows[0]["FolderName"].ToString() ?? string.Empty;
-                    
+                    if (dtPathDetails.Rows.Count > 0)
+                    {
+                        pathDetails.FolderPath = dtPathDetails.Rows[0]["FolderPath"].ToString() ?? string.Empty;
+                        pathDetails.ProcessName = dtPathDetails.Rows[0]["ProcessName"].ToString() ?? string.Empty;
+                        pathDetails.FolderName = dtPathDetails.Rows[0]["FolderName"].ToString() ?? string.Empty;
+                    }
 
 
                 }

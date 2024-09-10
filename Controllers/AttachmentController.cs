@@ -14,8 +14,8 @@ namespace gmTemporaryCustomerCreditLimit.Controllers
     public class AttachmentController : Controller
     {
         [HttpGet]
-        [Route("GetAttachmentPathByReferenceNo/{referenceNo}/{username}")]
-        public Task GetAttachmentPathByReferenceNo(string referenceNo, int username)
+        [Route("GetAttachmentPathByReferenceNo/{referenceNo}")]
+        public Task GetAttachmentPathByReferenceNo(string referenceNo)
         {
             var myConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             string connSyspro = myConfig.GetValue<string>("ConnectionStrings:connSyspro") ?? string.Empty;
@@ -28,9 +28,10 @@ namespace gmTemporaryCustomerCreditLimit.Controllers
 
 
         }
+
         [HttpPut]
-        [Route("InsertAttachments/{username}")]
-        public Task InsertAttachments(AttachmentPathDTO attachmentPathDTO, int username)
+        [Route("InsertAttachments/")]
+        public Task InsertAttachments(AttachmentPathDTO attachmentPathDTO)
         {
             var myConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             string connSyspro = myConfig.GetValue<string>("ConnectionStrings:connSyspro") ?? string.Empty;

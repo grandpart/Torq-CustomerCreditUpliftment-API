@@ -25,9 +25,10 @@ namespace gmTemporaryCustomerCreditLimit.Controllers
             return Response.WriteAsJsonAsync<CustomerDetails>(customer);
             
         }
+
         [HttpGet]
-        [Route("GetCustomerDetailsPerUserBranch/{username}/{branch}")]
-        public Task GetCustomerDetailsPerBranch(int username, string branch)
+        [Route("GetCustomerDetailsPerUserBranch/{branch}")]
+        public Task GetCustomerDetailsPerBranch( string branch)
         {
             var myConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
@@ -41,14 +42,14 @@ namespace gmTemporaryCustomerCreditLimit.Controllers
         }
 
         [HttpGet]
-        [Route("SearchAllCustomerDetails/{search}")]
-        public Task SearchAllCustomerDetails(string search)
+        [Route("SearchAllCustomerDetails/{searchvalue}")]
+        public Task SearchAllCustomerDetails(string searchvalue)
         {
             var myConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
             string connSyspro = myConfig.GetValue<string>("ConnectionStrings:Syspro") ?? string.Empty;
 
-            var customer = CustomerDetailsData.SearchAllActiveCustomerDetails(connSyspro, search);
+            var customer = CustomerDetailsData.SearchAllActiveCustomerDetails(connSyspro, searchvalue);
 
 
             return Response.WriteAsJsonAsync<List<CustomerDetails>>(customer);
