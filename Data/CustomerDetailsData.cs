@@ -1,20 +1,20 @@
-﻿using System.Data;
-using System.Text;
-using gmTemporaryCustomerCreditLimit.Model;
+﻿using gmTemporaryCustomerCreditLimit.Model;
 using Microsoft.Data.SqlClient;
+using System.Data;
+using System.Text;
 
 
 namespace gmTemporaryCustomerCreditLimit.Data
 {
     public class CustomerDetailsData
     {
-        
+
         #region Read
         public static CustomerDetails GetCustomerDetailsByAccountNo(string connString, string customerAccount)
         {
-            StringBuilder sb = new ();
-            CustomerDetails customer = new ();
-            
+            StringBuilder sb = new();
+            CustomerDetails customer = new();
+
             sb.AppendLine("SELECT C.Customer,C.CreditLimit,Name,");
             sb.AppendLine("IIF (C.CustomerOnHold ='Y','Yes','No') [Status]");
             sb.AppendLine("FROM dbo.ArCustomer C WITH(NOLOCK)");
@@ -30,25 +30,32 @@ namespace gmTemporaryCustomerCreditLimit.Data
 
                     command.Parameters.Clear();
                     command.Parameters.AddWithValue("@CustID", customerAccount);
-                    
+
                     connection.Open();
 
-                    DataTable dtCustomer = new ();
-                    SqlDataAdapter aCustomer = new (command);
+                    DataTable dtCustomer = new();
+                    SqlDataAdapter aCustomer = new(command);
                     aCustomer.Fill(dtCustomer);
+                    if (dtCustomer.Rows.Count > 0)
+                    {
+                        customer.Customer = dtCustomer.Rows[0]["Customer"].ToString() ?? string.Empty;
+                        //customer.AvailableCredit = Convert.ToDouble(dtCustomer.Rows[0]["AvailableCredit"].ToString());
+                        customer.CreditLimit = Convert.ToDouble(dtCustomer.Rows[0]["CreditLimit"].ToString());
+                        customer.CustomerName = dtCustomer.Rows[0]["Name"].ToString() ?? string.Empty;
+                    }
+                    else
+                    {
+                        customer = new CustomerDetails();
+                    }
 
-                    customer.Customer = dtCustomer.Rows[0]["Customer"].ToString() ?? string.Empty;
-                    //customer.AvailableCredit = Convert.ToDouble(dtCustomer.Rows[0]["AvailableCredit"].ToString());
-                    customer.CreditLimit= Convert.ToDouble(dtCustomer.Rows[0]["CreditLimit"].ToString());
-                    customer.CustomerName = dtCustomer.Rows[0]["Name"].ToString() ?? string.Empty;
 
 
                 }
 
-                
+
                 catch (SqlException ex)
                 {
-                   
+
                     throw new Exception(ex.Message);
 
                 }
@@ -61,7 +68,7 @@ namespace gmTemporaryCustomerCreditLimit.Data
         }
         public static List<CustomerDetails> GetAllActiveCustomerDetails(string connString)
         {
-            StringBuilder sb = new ();
+            StringBuilder sb = new();
             List<CustomerDetails> customers = new();
 
             sb.AppendLine("SELECT C.Customer,C.CreditLimit,Name,");
@@ -121,7 +128,7 @@ namespace gmTemporaryCustomerCreditLimit.Data
             sb.AppendLine("FROM dbo.ArCustomer C WITH(NOLOCK)");
             sb.AppendLine("WHERE CustomerOnHold= 'N' ");
             sb.AppendLine("AND Branch like @branch ");
-          
+
 
             using (SqlConnection connection = new(connString))
             {
@@ -179,7 +186,7 @@ namespace gmTemporaryCustomerCreditLimit.Data
             sb.AppendLine("IIF (C.CustomerOnHold ='Y','Yes','No') [Status]");
             sb.AppendLine("FROM dbo.ArCustomer C WITH(NOLOCK)");
             sb.AppendLine("WHERE CustomerOnHold= 'N' ");
-            sb.AppendLine("AND (Customer like '%" + search + "%' or Name like '% "+ search + "%') ");
+            sb.AppendLine("AND (Customer like '%" + search + "%' or Name like '% " + search + "%') ");
 
 
             using (SqlConnection connection = new(connString))
@@ -189,8 +196,8 @@ namespace gmTemporaryCustomerCreditLimit.Data
 
                     SqlCommand command = new(sb.ToString(), connection);
                     command.CommandType = CommandType.Text;
-                   
-                    
+
+
                     connection.Open();
 
                     DataTable dtCustomer = new();
