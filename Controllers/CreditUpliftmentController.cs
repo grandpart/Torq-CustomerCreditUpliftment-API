@@ -28,7 +28,7 @@ namespace gmTemporaryCustomerCreditLimit.Controllers
             {
                 Response.StatusCode = StatusCodes.Status404NotFound;
 
-                return Response.WriteAsync(JsonConvert.False);
+                return Response.WriteAsync(JsonConvert.SerializeObject(""));
 
             }
 
@@ -38,18 +38,9 @@ namespace gmTemporaryCustomerCreditLimit.Controllers
             string workFlowData = JsonConvert.SerializeObject(workFlowFlag);
             string ReferenceNo = Drive.Post(driveUsername, drivePassword, workFlowData);
 
-            if (ReferenceNo != "")
-            {
-                Response.StatusCode = StatusCodes.Status200OK;
-                return Response.WriteAsync(JsonConvert.SerializeObject(ReferenceNo));
-            }
-            else
-            {
-                Response.StatusCode = StatusCodes.Status200OK;
-                return Response.WriteAsync("Unsuccessful");
-            }
+           
+            return Response.WriteAsync(JsonConvert.SerializeObject(ReferenceNo));
 
-       
         }
 
 
