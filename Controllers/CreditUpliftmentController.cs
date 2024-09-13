@@ -3,9 +3,7 @@ using gmTemporaryCustomerCreditLimit.Data;
 using gmTemporaryCustomerCreditLimit.DataTransferObject;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Security.Principal;
 using static gmTemporaryCustomerCreditLimit.Model.DriveCallDetails;
-using System.DirectoryServices;
 
 
 namespace gmTemporaryCustomerCreditLimit.Controllers
@@ -13,15 +11,15 @@ namespace gmTemporaryCustomerCreditLimit.Controllers
     [ApiController]
     [Route("api/[controller]")]
     public class CreditUpliftmentController : Controller
-    {         
+    {
 
-            [HttpPost]
-            [Route("RequestCreditUpliftment/")]
-            public Task RequestCreditUpliftment(TempCreditLimitUpliftmentDTO creditLimitDTO,int username)
-            {
-                var myConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-                string driveUsername = myConfig.GetValue<string>("DriveEngineCredentials:DriveUsername") ?? string.Empty;
-                string drivePassword = myConfig.GetValue<string>("DriveEngineCredentials:DrivePassword") ?? string.Empty;
+        [HttpPost]
+        [Route("RequestCreditUpliftment/")]
+        public Task RequestCreditUpliftment(TempCreditLimitUpliftmentDTO creditLimitDTO)
+        {
+            var myConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+            string driveUsername = myConfig.GetValue<string>("DriveEngineCredentials:DriveUsername") ?? string.Empty;
+            string drivePassword = myConfig.GetValue<string>("DriveEngineCredentials:DrivePassword") ?? string.Empty;
 
             if (creditLimitDTO == null)
 
@@ -33,16 +31,16 @@ namespace gmTemporaryCustomerCreditLimit.Controllers
             }
 
             // call the drive workflow
-            
+
             WSCRaiseFlag workFlowFlag = DriveCallDetailsData.GetFlagDetails(creditLimitDTO);
             string workFlowData = JsonConvert.SerializeObject(workFlowFlag);
             string ReferenceNo = Drive.Post(driveUsername, drivePassword, workFlowData);
 
-           
+
             return Response.WriteAsync(JsonConvert.SerializeObject(ReferenceNo));
 
         }
 
 
     }
-    }
+}
