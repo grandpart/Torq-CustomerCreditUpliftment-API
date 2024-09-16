@@ -12,10 +12,9 @@ namespace gmTemporaryCustomerCreditLimit.Data
         #region Read Attachment Details
         public static AttachmentPathDetails ReturnAttachmentTable(string connString, string referenceNo)
         {
-            StringBuilder sb = new ();
             AttachmentPathDetails pathDetails = new();
 
-            sb.AppendLine("[Drive].[dbo].GI_GetFolderPathByFolderIDAndTableName");
+
           
 
             using (SqlConnection connection = new(connString))
@@ -23,7 +22,7 @@ namespace gmTemporaryCustomerCreditLimit.Data
                 try
                 {
 
-                    SqlCommand command = new(sb.ToString(), connection);
+                    SqlCommand command = new("[Drive].[dbo].GI_GetFolderPathByFolderIDAndTableName", connection);
                     command.CommandType = CommandType.StoredProcedure;
 
                     command.Parameters.Clear();
@@ -63,9 +62,7 @@ namespace gmTemporaryCustomerCreditLimit.Data
         #region Add Attachment
         public static bool InsertAttachment(string connString, AttachmentPathDTO attachmentPathDTO)
         {
-            StringBuilder sb = new();
-            
-            sb.AppendLine("[Drive].[dbo].GI_insertAttachments");
+          
 
 
             using (SqlConnection connection = new(connString))
@@ -73,7 +70,7 @@ namespace gmTemporaryCustomerCreditLimit.Data
                 try
                 {
 
-                    SqlCommand command = new(sb.ToString(), connection);
+                    SqlCommand command = new("[Drive].[dbo].GI_insertAttachments", connection);
                     command.CommandType = CommandType.StoredProcedure;
 
                     command.Parameters.Clear();

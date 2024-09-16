@@ -18,7 +18,7 @@ namespace gmTemporaryCustomerCreditLimit.Controllers
         public Task GetAttachmentPathByReferenceNo(string referenceNo)
         {
             var myConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-            string connSyspro = myConfig.GetValue<string>("ConnectionStrings:connSyspro") ?? string.Empty;
+            string connSyspro = myConfig.GetValue<string>("ConnectionStrings:Syspro") ?? string.Empty;
 
            // get attachment Location
 
@@ -34,7 +34,7 @@ namespace gmTemporaryCustomerCreditLimit.Controllers
         public Task InsertAttachments(AttachmentPathDTO attachmentPathDTO)
         {
             var myConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-            string connSyspro = myConfig.GetValue<string>("ConnectionStrings:connSyspro") ?? string.Empty;
+            string connSyspro = myConfig.GetValue<string>("ConnectionStrings:Syspro") ?? string.Empty;
            
 
             // Insert attachment per location
