@@ -75,7 +75,7 @@ namespace gmTemporaryCustomerCreditLimit.Data
                     command.CommandType = CommandType.StoredProcedure;
 
                     command.Parameters.Clear();
-                    command.Parameters.AddWithValue("@FolderId", attachmentPathDTO.ReferenceNo);
+                    command.Parameters.AddWithValue("@FolderId", attachmentPathDTO.FolderId);
                     command.Parameters.AddWithValue("@FileLocation", attachmentPathDTO.FilePath);
                     command.Parameters.AddWithValue("@FileName", attachmentPathDTO.FileName);
                     command.Parameters.AddWithValue("@ProcessName", attachmentPathDTO.ProcessName);

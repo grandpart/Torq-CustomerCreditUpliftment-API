@@ -6,7 +6,7 @@
         public string FileName { get; set; } = string.Empty;
         public string ProcessName { get; set; } = string.Empty;
         public string FolderName { get; set; } = string.Empty;
-        public string ReferenceNo { get; set; } = string.Empty;
+        public string FolderId { get; set; } = string.Empty;
 
     }
 }
