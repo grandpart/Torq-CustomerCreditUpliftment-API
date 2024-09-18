@@ -20,6 +20,7 @@ namespace gmTemporaryCustomerCreditLimit.Controllers
             var myConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             string driveUsername = myConfig.GetValue<string>("DriveEngineCredentials:DriveUsername") ?? string.Empty;
             string drivePassword = myConfig.GetValue<string>("DriveEngineCredentials:DrivePassword") ?? string.Empty;
+            string connTorq = myConfig.GetValue<string>("DriveEngineCredentials:Torq") ?? string.Empty;
 
             if (creditLimitDTO == null)
 
@@ -36,6 +37,9 @@ namespace gmTemporaryCustomerCreditLimit.Controllers
             string workFlowData = JsonConvert.SerializeObject(workFlowFlag);
             string ReferenceNo = Drive.Post(driveUsername, drivePassword, workFlowData);
 
+            //Insert into Torq database 
+            CreditUpliftmentData.InsertCreditUpliftment(connTorq, creditLimitDTO, ReferenceNo);
+            
 
             return Response.WriteAsync(JsonConvert.SerializeObject(ReferenceNo));
 

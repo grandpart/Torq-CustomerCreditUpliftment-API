@@ -16,9 +16,10 @@
         public string LastName { get; set; } = string.Empty;
         public string EmailAddress { get; set; } = string.Empty;
         public string Phone { get; set; } = string.Empty;
+        public int UserKey { get; set; }
 
-       
-       
+
+
 
 
     }
