@@ -39,6 +39,7 @@ namespace gmTemporaryCustomerCreditLimit.Data
                         pathDetails.FolderPath = dtPathDetails.Rows[0]["FolderPath"].ToString() ?? string.Empty;
                         pathDetails.ProcessName = dtPathDetails.Rows[0]["ProcessName"].ToString() ?? string.Empty;
                         pathDetails.FolderName = dtPathDetails.Rows[0]["FolderName"].ToString() ?? string.Empty;
+                        pathDetails.FolderId = referenceNo;
                     }
 
 

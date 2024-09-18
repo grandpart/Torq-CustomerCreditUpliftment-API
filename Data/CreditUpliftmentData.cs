@@ -55,5 +55,53 @@ namespace gmTemporaryCustomerCreditLimit.Data
             return true;
         }
         #endregion
+        #region Read
+        public static string ReturnFolderId(string connString, string guid)
+        {
+            StringBuilder sb = new();
+            string folderid = "";
+
+            sb.AppendLine("SELECT eFolderID from drive.dbo.prcCustTempCreditUpliftment");
+            sb.AppendLine("WHERE   AttGUID = @AttGUID");
+          
+
+
+            using (SqlConnection connection = new(connString))
+            {
+                try
+                {
+
+                    SqlCommand command = new(sb.ToString(), connection);
+                    command.CommandType = CommandType.Text;
+
+                    command.Parameters.Clear();
+                    command.Parameters.AddWithValue("@AttGUID", guid);
+
+                    connection.Open();
+
+                     folderid = Convert.ToString(command.ExecuteScalar()).Trim();
+                                        
+
+
+                }
+
+
+                catch (SqlException ex)
+                {
+
+                    throw new Exception(ex.Message);
+
+                }
+                finally
+                {
+                    connection.Close();
+                }
+
+                return folderid;
+            };
+
+
+        }
+        #endregion
     }
 }

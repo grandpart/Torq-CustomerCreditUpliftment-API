@@ -14,15 +14,16 @@ namespace gmTemporaryCustomerCreditLimit.Controllers
     public class AttachmentController : Controller
     {
         [HttpGet]
-        [Route("GetAttachmentPathByReferenceNo/{referenceNo}")]
-        public Task GetAttachmentPathByReferenceNo(string referenceNo)
+        [Route("GetAttachmentPathByReferenceNo/{attGUID}")]
+        public Task GetAttachmentPathByReferenceNo(string attGUID)
         {
             var myConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             string connSyspro = myConfig.GetValue<string>("ConnectionStrings:Syspro") ?? string.Empty;
 
-           // get attachment Location
+            // get attachment Location
 
-            AttachmentPathDetails pathDetails  =AttachmentPathDetailsData.ReturnAttachmentTable(connSyspro, referenceNo);
+            string tempFolderId = CreditUpliftmentData.ReturnFolderId(connSyspro, attGUID);
+            AttachmentPathDetails pathDetails  =AttachmentPathDetailsData.ReturnAttachmentTable(connSyspro, tempFolderId);
 
             return Response.WriteAsJsonAsync<AttachmentPathDetails> (pathDetails);
 
